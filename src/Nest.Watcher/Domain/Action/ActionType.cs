@@ -18,6 +18,8 @@ namespace Nest
 		[EnumMember(Value = "logging")]
 		Logging,
 		[EnumMember(Value = "webhook")]
-		Webhook
-	}
+		Webhook,
+        [EnumMember(Value = "slack")]
+        Slack
+    }
 }

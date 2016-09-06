@@ -78,7 +78,9 @@ namespace Nest.Watcher.Serialization
 					WriteActionEntry(kvp.Key, "webhook", kvp.Value, writer, serializer);
 				else if (kvp.Value is ILoggingAction)
 					WriteActionEntry(kvp.Key, "logging", kvp.Value, writer, serializer);
-				else
+                else if (kvp.Value is ISlackAction)
+                    WriteActionEntry(kvp.Key, "slack", kvp.Value, writer, serializer);
+                else
 					throw new ArgumentException("Unknown IAction type");
 			}
 			writer.WriteEndObject();
