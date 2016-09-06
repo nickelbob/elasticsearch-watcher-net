@@ -147,5 +147,43 @@ namespace Nest.Watcher.Tests.Unit.Put
 			this.JsonEquals(expectedRequest, response);
 		}
 
-	}
+        [Test]
+        public void SlackAction()
+        {
+            var expectedRequest = new
+            {
+                actions = new
+                {
+                    slack = new
+                    {
+                        slack = new
+                        {
+                            account = "slackAccount",
+                            message = new 
+                            {
+                                to = new[] { "#general" },
+                                text = "Testing Slack Watcher Integration"
+                            }
+                        }
+                    }
+                }
+            };
+            var response = this.Client.PutWatch("some-watch", p => p
+                .Actions(a => a
+                    .Add("slack", new SlackAction
+                    {
+                        Account = "slackAccount",
+                        Message = new Message
+                        {
+                            Text = "Testing Slack Watcher Integration",
+                            To = new[] { "#general" }
+                        }
+                    })
+                )
+            );
+            this.JsonEquals(expectedRequest, response);
+        }
+
+
+    }
 }
